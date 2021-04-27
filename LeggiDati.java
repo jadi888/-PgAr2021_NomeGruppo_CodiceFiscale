@@ -36,6 +36,7 @@ public class LeggiDati{
             MeseNascita mese = new MeseNascita();
             GiornoNascita giorni = new GiornoNascita();
             CancellaVocali canc = new CancellaVocali();
+            CarattereControllo car_control = new CarattereControllo();
 
             //per ogni elemento di listaPersone estraggo i vari dati per generare poi i codici fiscali
             for(int i=0; i < quantePersone; i++) {
@@ -55,15 +56,23 @@ public class LeggiDati{
                 /*prendo il comune di inputPersone  e li assegno il codice composto
                     da una lettera e 3 cifre dal file comuni.xml, se c'è*/
                 String comune = listaPersone(i).getAttribute("comune_nascita");
-                for(int k=0; k < quantiComuni; k++){
+                for(int k=0; k < quantiComuni; k++)
                     if(listaComuni(k).getAttribute("nome").equals(comune))
                         String codiceComune = listaComuni(k).getAttribute("codice");
                     else return;
-                }
 
 
-                Codici codice_fiscale = new Codici(cognome,nome, annoNascita, meseNascita, giornoNascita, comune, codiceControllo);
+                //creo un codice fiscale temporaneo perchè non ha ancora il carattere di controllo finale;
+                Codici codice_temp = new Codici(cognome,nome, annoNascita, meseNascita, giornoNascita, codiceComune, codiceControllo);
 
+                //dopo varia manipolazioni ottengo il codice identificativo finale e cosi' posso comporre il mio codice fiscale vero
+                char codice_identificativo = car_control.controllo(codice_fiscale);
+
+                //compongo finalmente il codice fiscale da aggiungere alla listacodici
+                Codici codice_fiscale = new Codici(cognome,nome, annoNascita, meseNascita, giornoNascita, codiceComune, codiceControllo);
+
+                //ho creato il CF con i vari pezzi di sopra e lo aggiungo all'ArrayList ListaCodici
+                ListaCodici.add(codice_fiscale);
 
                 }
 

@@ -9,7 +9,7 @@ public class Codici {
     private static final char CHAR_CONTROLLO;
 
 
-    public Codici(String COGNOME, String NOME, String ANNO, char MESE, string GIORNO, String COMUNE, char CHAR_CONTROLLO) {
+    public Codici(String COGNOME, String NOME, String ANNO, char MESE, String GIORNO, String COMUNE, char CHAR_CONTROLLO) {
         this.COGNOME = COGNOME;
         this.NOME = NOME;
         this.ANNO = ANNO;
@@ -22,5 +22,5 @@ public class Codici {
 
     @Override
     public String toString() {
-        return COGNOME+NOME+ANNO+MESE+COMUNE+CHAR_CONTROLLO;
+        return COGNOME+NOME+ANNO+MESE+GIORNO+COMUNE+CHAR_CONTROLLO;
     }
