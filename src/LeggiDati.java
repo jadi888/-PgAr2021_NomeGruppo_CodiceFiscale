@@ -1,16 +1,26 @@
 import java.*;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.ParserConfigurationException;
+
+import jdk.internal.icu.text.UnicodeSet;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
+
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class LeggiDati{
-    private ArrayList <Codici> ListaCodici = new ArrayList<Codici>();
+public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
+    private static static DocumentBuilderDactory;
+    private static static ListaCodici;
 
-    public static void main(){
+    private ArrayList<Codici> ListaCodici = new ArrayList<Codici>();
+
+    public <Nodelist> void main(){
         try {
             //aggiungo i file xml
             File file = new File("inputPersone.xml");
@@ -18,16 +28,22 @@ public class LeggiDati{
             DocumentBuilderFactory dbf = DocumentBuilderDactory.newIstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
-            Document doc = db.parse(file1);
-            Nodelist listaPersone = doc.getElementsByTagName("persona");
-            Nodelist listaComuni = doc.getElementsByTagName("comuni");
+            Document doc1 = db.parse(file1);
+            NodeList listaPersone = doc.getElementsByTagName("persona");
+            NodeList listaComuni = doc.getElementsByTagName("comuni");
     catch(Exception e){
                 System.out.println("Errore nell'inizializzazione del reader:");
                 System.out.println(e.getMessage());
             }
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
         }
 
-            //prendo il numero di elementi del file xml "inputPersone"
+        //prendo il numero di elementi del file xml "inputPersone"
             int quantePersone = listaPersone.getLenght();
             int quantiComuni =listaComuni.getLenght();
 
@@ -40,36 +56,39 @@ public class LeggiDati{
 
             //per ogni elemento di listaPersone estraggo i vari dati per generare poi i codici fiscali
             for(int i=0; i < quantePersone; i++) {
-                String cognome = canc.CancellaVocali(listaPersone(i).getAttribute("cognome")); //estraggo cognome e cancello vocali
-                String nome = canc.CancellaVocali(listaPersone(i).getAttribute("nome"));//estraggo nome  e cancello vocali
+                String cognome1; //estraggo cognome e cancello vocali
+                cognome1 = CancellaVocali.Cancella(listaPersone(i).getAttribute("cognome"));
+                String nome1 = CancellaVocali.Cancella(listaPersone(i).getAttribute("nome"));//estraggo nome  e cancello vocali
 
-                //prendo l'anno di nascita e considero solo le ultime due cifre
-                String annoNascita = anno.UltimeDueCifre(listaPersone(i).getAttribute("data_nascita").substring(0, 3));
+                /* prendo l'anno di nascita e considero solo le ultime due cifre */
+                String annoNascita = DataNascita.UltimeDueCifre(listaPersone(i).getAttribute("data_nascita").substring(0, 3));
 
                 //prendo il mese di nascita e lo converto nella lettera corrispondente secondo Wikipedia
-                char meseNascita = mese.ConvertiMese(listaPersone(i).getAttribute("data_nascita").substring(5, 6));
+                String meseNascita = MeseNascita.ConvertiMese(listaPersone(i).getAttribute("data_nascita").substring(5, 6));
 
                 //prendo il giorno di nascita e lo converto a seconda che sia maschio o femmina
-                int giornoNascita = g.giornoN(listaPersone(i).getAttribute("data_nascita").substring(9, 10),
+                String giornoNascita = (int) GiornoNascita.giornoN(listaPersone(i).getAttribute("data_nascita").substring(9, 10),
                         listaPersone(i).getAttribute("sesso"));
 
                 /*prendo il comune di inputPersone  e li assegno il codice composto
                     da una lettera e 3 cifre dal file comuni.xml, se c'è*/
                 String comune = listaPersone(i).getAttribute("comune_nascita");
+
                 for(int k=0; k < quantiComuni; k++)
                     if(listaComuni(k).getAttribute("nome").equals(comune))
-                        String codiceComune = listaComuni(k).getAttribute("codice");
+                       String codiceComune = listaComuni(k).getAttribute("codice");
                     else return;
 
 
                 //creo un codice fiscale temporaneo perchè non ha ancora il carattere di controllo finale;
-                Codici codice_temp = new Codici(cognome,nome, annoNascita, meseNascita, giornoNascita, codiceComune, codiceControllo);
+                String codiceComune = null;
+                Codici codice_temp = new Codici(cognome1,nome1, annoNascita, meseNascita, giornoNascita, codiceComune, "");
 
                 //dopo varia manipolazioni ottengo il codice identificativo finale e cosi' posso comporre il mio codice fiscale vero
-                char codice_identificativo = car_control.controllo(codice_fiscale);
+                String codice_identificativo = CarattereControllo.controllo(codice_temp);
 
                 //compongo finalmente il codice fiscale da aggiungere alla listacodici
-                Codici codice_fiscale = new Codici(cognome,nome, annoNascita, meseNascita, giornoNascita, codiceComune, codiceControllo);
+                Codici codice_fiscale = new Codici(cognome1,nome1, annoNascita, meseNascita, giornoNascita, codiceComune, codice_identificativo);
 
                 //ho creato il CF con i vari pezzi di sopra e lo aggiungo all'ArrayList ListaCodici
                 ListaCodici.add(codice_fiscale);

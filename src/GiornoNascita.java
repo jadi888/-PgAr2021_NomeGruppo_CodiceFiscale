@@ -1,5 +1,3 @@
-import java.*;
-
 public class GiornoNascita(){
 
     public static int giornoN (int giorno, char genere) {
@@ -12,7 +10,7 @@ public class GiornoNascita(){
             return 40 + giorno;
         }
         else {
-            return;
+            return null;
         }
          }
     }

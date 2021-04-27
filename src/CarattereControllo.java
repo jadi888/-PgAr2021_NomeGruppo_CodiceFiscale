@@ -10,16 +10,17 @@ public class CarattereControllo() extends Codici{
     (per dettagli vedi wikipedia);
      */
 
-    public static char controllo (Codici cod) {
+    public static String controllo (Codici cod) {
         int codice_finale=0;
         int totale = 0;
         int totale_pari=0;
         int totale_dispari=0;
 
+
         /* le stringhe in cui salvo rispettivamente i caratteri con indice pari o dispari*/
         String pari = "";
         String dispari = "";
-        for (int j = 0; j < cod.lenght(); j++) {
+        for (int j = 0; j < cod.length(); j++) {
             if (j % 2 == 0) {
                 pari += myString.charAt(j);
             } else {
@@ -28,7 +29,7 @@ public class CarattereControllo() extends Codici{
             }
 
         //per i caratteri con indice pari procedo nel seguente modo:
-        final static String alphabet = "ABCDEFGHIJKLMNOPQRST";
+        final String alphabet = "ABCDEFGHIJKLMNOPQRST";
         for(int i = 0; i < pari.length(); i++){
             /*se il carattere è un intero lo sommo al totale dei pari*/
             if(Integer.parseInt(pari(i)))
@@ -105,11 +106,11 @@ public class CarattereControllo() extends Codici{
         totale = totale_dispari+totale_pari;
         codice_finale=totale%26;
 
-        char[] alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        char[] alphabet1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
         if (codice_finale > 25) {
             return null;
         }
-        return Character.toString(alphabet[codice_finale]);
+        return Character.toString(alphabet1[codice_finale]);
 
         }
     }
