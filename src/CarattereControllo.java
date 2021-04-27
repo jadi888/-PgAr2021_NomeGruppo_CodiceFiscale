@@ -10,7 +10,7 @@ public class CarattereControllo() extends Codici{
     (per dettagli vedi wikipedia);
      */
 
-    public static String controllo (Codici cod) {
+    public static String controllo (String cod) {
         int codice_finale=0;
         int totale = 0;
         int totale_pari=0;
@@ -20,7 +20,7 @@ public class CarattereControllo() extends Codici{
         /* le stringhe in cui salvo rispettivamente i caratteri con indice pari o dispari*/
         String pari = "";
         String dispari = "";
-        for (int j = 0; j < cod.length(); j++) {
+        for (int j = 0; j < cod.; j++) {
             if (j % 2 == 0) {
                 pari += myString.charAt(j);
             } else {
@@ -40,7 +40,7 @@ public class CarattereControllo() extends Codici{
         }
 
         //per i caratteri con indice DISPARI procedo nel seguente modo:
-        for(int i=0; i < dispari.lenght(); i++){
+        for(int i=0; i < dispari.length(); i++){
             if(Integer.parseInt(dispari(i)) && dispari(i) != 0 && dispari(i) != 1){
                 if(dispari(i)%2==0)
                     totale_dispari += dispari(i)+1;

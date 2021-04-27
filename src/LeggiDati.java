@@ -82,7 +82,8 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
 
                 //creo un codice fiscale temporaneo perchè non ha ancora il carattere di controllo finale;
                 String codiceComune = null;
-                Codici codice_temp = new Codici(cognome1,nome1, annoNascita, meseNascita, giornoNascita, codiceComune, "");
+
+               String codice_temp = (String) new Codici(cognome1,nome1, annoNascita, meseNascita, giornoNascita, codiceComune, "");
 
                 //dopo varia manipolazioni ottengo il codice identificativo finale e cosi' posso comporre il mio codice fiscale vero
                 String codice_identificativo = CarattereControllo.controllo(codice_temp);
