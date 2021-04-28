@@ -18,9 +18,9 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
     private static static DocumentBuilderDactory;
     private static static ListaCodici;
 
-    private ArrayList<Codici> ListaCodici = new ArrayList<Codici>();
+    private final ArrayList<Codici> ListaCodici = new ArrayList<Codici>();
 
-    public <Nodelist> void main(){
+    public static void main(){
         try {
             //aggiungo i file xml
             File file = new File("inputPersone.xml");
@@ -29,8 +29,7 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
             Document doc1 = db.parse(file1);
-            NodeList listaPersone = doc.getElementsByTagName("persona");
-            NodeList listaComuni = doc.getElementsByTagName("comuni");
+
     catch(Exception e){
                 System.out.println("Errore nell'inizializzazione del reader:");
                 System.out.println(e.getMessage());
@@ -44,8 +43,10 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
         }
 
         //prendo il numero di elementi del file xml "inputPersone"
-            int quantePersone = listaPersone.getLenght();
-            int quantiComuni =listaComuni.getLenght();
+        NodeList listaPersone = doc.getElementsByTagName("persona");
+        NodeList listaComuni = doc.getElementsByTagName("comuni");
+        int quantePersone = listaPersone.getLength();
+            int quantiComuni =listaComuni.getLength();
 
             //istanzio le due classi DataNascita e MeseNascita per utilizzare i rispettivi metodi
             DataNascita anno = new DataNascita();
