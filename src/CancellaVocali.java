@@ -1,17 +1,10 @@
-import java.*;
-
 public class CancellaVocali() {
 
     public static String Cancella(String str) {
         if (str.length() == 2) {
             return str + 'X';
         }
-
-            for (int i = 0; i < str.length(); i++) {
-            if (str(i) == 'A' || str(i) == 'E' || str(i) == 'I' || str(i) == 'O' || str(i) == 'U')
-                char x = str(i);
-            break;
-        }
+        char x;
 
         String new_str;
         new_str = str.replaceAll("[aeiouAEIOU]",
@@ -21,7 +14,13 @@ public class CancellaVocali() {
         if (new_str.length() == 3) {
             return new_str;
         } else if (new_str.length() < 3) {
-            return str + x;
+            for (int i = 0; i < str.length(); i++) {
+                x = str.charAt(i);
+                if (str.charAt(i) == 'A' || str.charAt(i) == 'I' || str.charAt(i) == 'E' || str.charAt(i) == 'O' || str.charAt(i) == 'U')
+                    break;
+            }
+            return str + "x";
+            
         }
     }
 }

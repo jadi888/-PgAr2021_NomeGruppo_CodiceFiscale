@@ -11,7 +11,45 @@ import java.io.IOException;
 
 public class ControlloCodiciFiscali {
 
-    try {
+    File xmlFile;
+    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder dBuilder;
+        try
+
+    {
+        xmlFile = new File("codiciFiscali.xml");
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        Document doc = null;
+        try {
+            doc = dBuilder.parse(xmlFile);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        doc.getDocumentElement().normalize();
+        printElement(doc);
+        System.out.println("XML file updated successfully");
+    } catch(SAXException |ParserConfigurationException e1)
+
+    {
+        e1.printStackTrace();
+    }
+
+
+
+    private static void printElement(Document someNode) {
+        NodeList nodeList = someNode.getElementsByTagName("codici");
+        int q
+        for(int z=0,size= nodeList.getLength();z<size; z++) {
+
+        }
+    }
+    /*try {
         //aggiungo i file xml
         File file3 = new File("codiciFiscali.xml");
         DocumentBuilderFactory dbf = DocumentBuilderDactory.newIstance();
@@ -39,6 +77,6 @@ public class ControlloCodiciFiscali {
 
     }
 
-
+*/
 
 }

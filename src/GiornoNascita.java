@@ -8,8 +8,6 @@ public class GiornoNascita(){
         else if(genere == 'F') {
             return 40 + giorno;
         }
-        else {
-            return null;
-        }
+
          }
     }
