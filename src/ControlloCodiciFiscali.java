@@ -14,9 +14,7 @@ public class ControlloCodiciFiscali {
     File xmlFile;
     DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
     DocumentBuilder dBuilder;
-        try
-
-    {
+        try {
         xmlFile = new File("codiciFiscali.xml");
         try {
             dBuilder = dbFactory.newDocumentBuilder();
@@ -34,7 +32,7 @@ public class ControlloCodiciFiscali {
         doc.getDocumentElement().normalize();
         printElement(doc);
         System.out.println("XML file updated successfully");
-    } catch(SAXException |ParserConfigurationException e1)
+    } catch(SAXException || ParserConfigurationException e1)
 
     {
         e1.printStackTrace();
@@ -42,9 +40,11 @@ public class ControlloCodiciFiscali {
 
 
 
+
+
     private static void printElement(Document someNode) {
         NodeList nodeList = someNode.getElementsByTagName("codici");
-        int q
+        int q;
         for(int z=0,size= nodeList.getLength();z<size; z++) {
 
         }

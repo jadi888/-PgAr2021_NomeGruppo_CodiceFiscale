@@ -1,6 +1,9 @@
 import java.*;
 
 public class CarattereControllo extends Codici{
+    public CarattereControllo(String COGNOME, String NOME, String ANNO, String MESE, String GIORNO, String COMUNE, String CHAR_CONTROLLO) {
+        super(COGNOME, NOME, ANNO, MESE, GIORNO, COMUNE, CHAR_CONTROLLO);
+    }
 
     /*a partire dai 15 caratteri alfanumerici ricavati, determiniamo il carattere di controllo in base all'algoritmo
     che opera nel seguente modo:
@@ -11,7 +14,7 @@ public class CarattereControllo extends Codici{
      */
 
     public static String controllo (String cod) {
-        int codice_finale=0;
+        int codice_finale;
         int totale = 0;
         int totale_pari=0;
         int totale_dispari=0;
@@ -20,7 +23,7 @@ public class CarattereControllo extends Codici{
         /* le stringhe in cui salvo rispettivamente i caratteri con indice pari o dispari*/
         String pari = "";
         String dispari = "";
-        for (int j = 0; j < cod.; j++) {
+        for (int j = 0; j < cod.length(); j++) {
             if (j % 2 == 0) {
                 pari += cod.charAt(j);
             } else {
@@ -90,7 +93,7 @@ public class CarattereControllo extends Codici{
                 totale_dispari+=12;
             else if(dispari.charAt(i)=='T')
                 totale_dispari+=14;
-            else if(dispari.charAt()=='U')
+            else if(dispari.charAt(i)=='U')
                 totale_dispari+=16;
             else if(dispari.charAt(i)=='V')
                 totale_dispari+=10;

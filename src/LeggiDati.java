@@ -1,4 +1,5 @@
 import java.*;
+import javax.xml.crypto.Data;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
@@ -41,6 +42,7 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
         }
 
         //prendo il numero di elementi del file xml "inputPersone"
+        assert doc != null;
         NodeList listaPersone = doc.getElementsByTagName("persona");
         NodeList listaComuni = doc1.getElementsByTagName("comuni");
         int quantePersone = listaPersone.getLength();
@@ -55,8 +57,8 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
 
         //per ogni elemento di listaPersone estraggo i vari dati per generare poi i codici fiscali
         for (int i = 0; i < quantePersone; i++) {
-            String cognome1; //estraggo cognome e cancello vocali
-            cognome1 = CancellaVocali.Cancella(listaPersone(i).getAttribute("cognome"));
+
+            String cognome1 = CancellaVocali.Cancella(listaPersone(i).getAttribute("cognome"));
             String nome1 = CancellaVocali.Cancella(listaPersone(i).getAttribute("nome"));//estraggo nome  e cancello vocali
 
             /* prendo l'anno di nascita e considero solo le ultime due cifre */
@@ -66,7 +68,7 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
             String meseNascita = MeseNascita.ConvertiMese(listaPersone(i).getAttribute("data_nascita").substring(5, 6));
 
             //prendo il giorno di nascita e lo converto a seconda che sia maschio o femmina
-            String giornoNascita = (int) GiornoNascita.giornoN(listaPersone(i).getAttribute("data_nascita").substring(9, 10),
+            String giornoNascita = GiornoNascita.giornoN(listaPersone(i).getAttribute("data_nascita").substring(9, 10),
                     listaPersone(i).getAttribute("sesso"));
 
                 /*prendo il comune di inputPersone  e li assegno il codice composto
@@ -101,10 +103,5 @@ public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
 
 
 
+}
 
-
-
-
-
-        }
-    }
