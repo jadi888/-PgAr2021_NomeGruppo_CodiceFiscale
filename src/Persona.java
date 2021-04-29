@@ -4,45 +4,73 @@ public class Persona {
     private static String NOME = null;
     private static String ANNO = null;
     private static String MESE = null;
+    private static String SESSO = null;
     private static String GIORNO = null;
     private static String COMUNE = null;
     private static String CHAR_CONTROLLO = null;
 
 
 
-    public Persona(String COGNOME, String NOME, String ANNO, String MESE, String GIORNO, String COMUNE, String CHAR_CONTROLLO) {
+    public Persona(String COGNOME, String NOME, String ANNO, String MESE, String SESSO ,String GIORNO, String COMUNE, String CHAR_CONTROLLO) {
         this.COGNOME = COGNOME;
         this.NOME = NOME;
         this.ANNO = ANNO;
         this.MESE = MESE;
+        this.SESSO = SESSO;
         this.GIORNO = GIORNO;
         this.COMUNE = COMUNE;
         this.CHAR_CONTROLLO = CHAR_CONTROLLO;
     }
 
+public static String getCOGNOME(){
+        return COGNOME;
+}
+public static String getNOME(){
+        return NOME;
+}
 
-    public static String getCognome(String cognome) {
-        if (COGNOME.length() == 2) {
-            return COGNOME + 'X';
+public static String getANNO(){
+        return ANNO;
+}
+public static String getMESE(){
+        return MESE;
+}
+public static String getGIORNO(){
+        return GIORNO;
+}
+
+public static String getSESSO(){
+        return SESSO;
+}
+
+public static String getCOMUNE(){
+        return COMUNE;
+}
+
+   /* public String getCognome(String cognome) {
+        if (cognome.length() == 2) {
+            COGNOME = cognome +'X';
+            return COGNOME;
         }
         char x;
         String new_Cognome;
-        new_Cognome = COGNOME.replaceAll("[aeiouAEIOU]",
+        new_Cognome = cognome.replaceAll("[aeiouAEIOU]",
                 "");
         if (new_Cognome.length() == 3) {
             return new_Cognome;
         } else if (new_Cognome.length() < 3) {
-            for (int i = 0; i < COGNOME.length(); i++) {
-                x = COGNOME.charAt(i);
-                if (COGNOME.charAt(i) == 'A' || COGNOME.charAt(i) == 'I' || COGNOME.charAt(i) == 'E'
-                        || COGNOME.charAt(i) == 'O' || COGNOME.charAt(i) == 'U')
+            for (int i = 0; i < cognome.length(); i++) {
+                x = cognome.charAt(i);
+                if (cognome.charAt(i) == 'A' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'E'
+                        || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
                     break;
             }
         }
-        return COGNOME + "x";
+        COGNOME = cognome +"x";
+        return COGNOME;
     }
 
-    public static String getNome(String nome) {
+    public String getNome(String nome) {
         if (NOME.length() == 2) {
             return NOME + 'X';
         }
@@ -63,13 +91,13 @@ public class Persona {
         return NOME + "x";
     }
 
-    public static String getAnno(String anno){
+    public String getAnno(String anno){
         String ANNO = anno.substring(2,3);
         return ANNO;
     }
 
 
-    public static String getMese(String mese) {
+    public String getMese(String mese) {
         if (mese.equals("01")) {
             String MESE = "A";
             return MESE;
@@ -122,7 +150,7 @@ public class Persona {
     }
 
 
-    public static String getGiorno (String giorno, String genere) {
+    public String getGiorno (String giorno, String genere) {
         if (genere.equals('F')){
             int g = Integer.parseInt(giorno);
             GIORNO = String.valueOf(40 + g);
@@ -147,7 +175,7 @@ public class Persona {
     (per dettagli vedi wikipedia);
      */
 
-    public static String getCarattereSpeciale (String cod) {
+    public String getCarattereSpeciale(String cod) {
         int codice_finale;
         int totale = 0;
         int totale_pari=0;
@@ -262,4 +290,4 @@ public class Persona {
         return s;
     }
 
-}
+}*/
