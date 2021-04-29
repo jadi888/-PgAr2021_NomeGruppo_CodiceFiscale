@@ -1,3 +1,5 @@
+package theFightClub_Cod_Fiscali.unibs.it;
+
 public class CodiceFiscale {
 
     public static String generaCodice(Persona persona) {
@@ -19,47 +21,60 @@ public class CodiceFiscale {
     }
 
     public static String generaCognome(String cognome) {
+
+        //da Wikipedia: se il cognome ha solo 2 lettere allora aggiungo una X;
         if (cognome.length() == 2) {
             cognome = cognome + 'X';
             return cognome;
         }
-        char x;
-        String new_Cognome;
+
+        String new_Cognome; //sara il mio cognome senza vocali;
         new_Cognome = cognome.replaceAll("[aeiouAEIOU]",
                 "");
+        //se il cognome senza vocali ha esattamente 3 lettere lo mantengo cosi' com'è;
         if (new_Cognome.length() == 3) {
             return new_Cognome;
+
+            //se il cognome senza vocali ha meno di 3 lettere allora aggiungo la prima vocale del cognome originale;
         } else if (new_Cognome.length() < 3) {
             for (int i = 0; i < cognome.length(); i++) {
+                char x;
                 x = cognome.charAt(i);
                 if (cognome.charAt(i) == 'A' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'E'
-                        || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
-                    break;
+                        || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U'){
+                    new_Cognome = new_Cognome+x;
+                    break;}
+                    else continue;
             }
         }
-        cognome = cognome +"x";
-        return cognome;
+
+        return new_Cognome;
     }
 
     public static String generaNome(String nome) {
+        //se il nome è fatto di sole due lettere aggiungo una X. es. Fo -> FOX; Po -> POX;
         if (nome.length() == 2) {
             return nome + 'X';
         }
-        char x;
-        String new_Nome;
+
+        String new_Nome; //sarà il nome senza vocali;
         new_Nome = nome.replaceAll("[aeiouAEIOU]",
                 "");
         if (new_Nome.length() == 3) {
             return new_Nome;
         } else if (new_Nome.length() < 3) {
             for (int i = 0; i < nome.length(); i++) {
+                char x;
                 x = nome.charAt(i);
                 if (nome.charAt(i) == 'A' || nome.charAt(i) == 'I' || nome.charAt(i) == 'E' ||
-                        nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
+                        nome.charAt(i) == 'O' || nome.charAt(i) == 'U'){
+                    new_Nome = new_Nome+x;
                     break;
+                }
+                else continue;
             }
         }
-        return nome + "x";
+        return new_Nome;
     }
 
     public static String generaAnno(String anno){
@@ -108,12 +123,12 @@ public class CodiceFiscale {
     }
 
     public static String generaGiorno (String giorno, String sesso) {
-        if (sesso.equals('F')){
+        if (sesso.equals("F")){
             int g = Integer.parseInt(giorno);
             giorno = String.valueOf(40 + g);
             return giorno;
         }
-        else if(sesso.equals('M')){
+        else if(sesso.equals("M")){
             // se il giorno è compreso tra 1-9 aggiungo un zero davanti;
             if (((Integer.parseInt(giorno)) >= 1) && (Integer.parseInt(giorno)) <= 9) {
                 return '0' + giorno;
