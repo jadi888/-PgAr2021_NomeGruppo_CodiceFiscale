@@ -1,4 +1,5 @@
 import java.*;
+
 import javax.xml.crypto.Data;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
@@ -16,13 +17,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class LeggiDati<DocumentBuilderDactory, ListaCodici> {
+public class LeggiDati {
 
     private static ArrayList<Persona> ListaPersone = new ArrayList<>();
     private static ArrayList<Persona> ListaComuni = new ArrayList<>();
 
 
-    public ArrayList<Persona> estraggoDati() {
+    public static ArrayList<Persona> estraggoDati() {
         Document doc1 = null;
         Document doc = null;
         try {
