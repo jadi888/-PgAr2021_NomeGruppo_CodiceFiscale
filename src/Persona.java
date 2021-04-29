@@ -20,6 +20,7 @@ public class Persona {
         this.CHAR_CONTROLLO = CHAR_CONTROLLO;
     }
 
+
     public static String getCognome(String cognome) {
         if (COGNOME.length() == 2) {
             return COGNOME + 'X';
