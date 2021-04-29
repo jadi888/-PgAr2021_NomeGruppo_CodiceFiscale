@@ -224,7 +224,7 @@ public class ControlloCodiciFiscali {
         }
         return Character.toString(alphabet1[codice_finale]);
 
-        if (Character.toString(alphabet1[codice_finale]) == codice.charAt(11))
+        if (Character.toString(alphabet1[codice_finale]) == codice.charAt(15))
             corretto = true;
         else
             return false;
