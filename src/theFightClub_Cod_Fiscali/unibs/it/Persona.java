@@ -12,7 +12,9 @@ Persona {
     private static String COMUNE = null;
     private static String CF =  null;
 
+public Persona(){
 
+}
 
 
     public Persona(String COGNOME, String NOME, String ANNO, String MESE, String SESSO ,String GIORNO, String COMUNE) {
@@ -28,6 +30,32 @@ Persona {
 
 public String getCOGNOME(){
         return COGNOME;
+}
+
+public void setCOGNOME(String cognome){
+    this.COGNOME = cognome;
+}
+public void setNOME(String nome){
+    this.NOME = nome;
+}
+public void setANNO(String anno){
+    this.ANNO = anno;
+}
+
+public void setMESE(String mese){
+    this.MESE = mese;
+}
+
+public void setGIORNO(String giorno){
+    this.GIORNO = giorno;
+}
+
+public void setSESSO(String sesso){
+    this.SESSO = sesso;
+}
+
+public void setCOMUNE(String comune){
+    this.COMUNE = comune;
 }
 
 public String getNOME(){

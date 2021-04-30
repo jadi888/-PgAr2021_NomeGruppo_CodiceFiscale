@@ -26,7 +26,7 @@ public class CreazioneOutput {
             xmlw.writeStartElement("output"); // scrittura del tag radice
             xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
             xmlw.writeStartElement("persone");
-            xmlw.writeAttribute("numero =", listaPersone.size());
+            xmlw.writeAttribute("numero =", String.valueOf(listaPersone.size()));
 
             for (int i = 0; i < listaPersone.size(); i++)
             {                         //elemento persone

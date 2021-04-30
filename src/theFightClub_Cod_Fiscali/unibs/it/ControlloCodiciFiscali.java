@@ -7,45 +7,61 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamReader;
 import java.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ControlloCodiciFiscali {
 
-    File xmlFile; //INCLUDO IL FILE XML codiciFiscali.xml
-    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-    DocumentBuilder dBuilder;
-        try {
-        xmlFile = new File("codiciFiscali.xml");
-        try {
-            dBuilder = dbFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-        Document doc = null;
-        try {
-            doc = dBuilder.parse(xmlFile);
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        doc.getDocumentElement().normalize();
-        printElement(doc);
-        System.out.println("XML file updated successfully");
-    } catch(SAXException || ParserConfigurationException e1;);
+    private static final   ArrayList<Codice> listaCodici = new ArrayList<>();
 
-    {
-        e1.printStackTrace();
+    public static ArrayList<Codice> estraggoCodici(){
+        Codice codice = new Codice();
+        XMLInputFactory xmlif = null;
+        XMLStreamReader xmlr = null;
+
+        try {
+            //aggiungo i file xml
+            xmlif = XMLInputFactory.newInstance();
+            xmlr = xmlif.createXMLStreamReader("codiciFiscali.xml", new FileInputStream("codiciFiscali.xml"));
+        } catch (Exception e) {
+            System.out.println("Errore nell'inizializzazione del reader: ");
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            String elementoAttuale = "";
+            while (xmlr.hasNext()) {
+                switch (xmlr.getEventType()){
+                    case XMLStreamConstants.START_ELEMENT:
+                        elementoAttuale = xmlr.getLocalName();
+                        break;
+                    case XMLStreamConstants.CHARACTERS:
+                        if (elementoAttuale.equalsIgnoreCase("codice")) {
+                            String codice1= xmlr.getText();
+                            codice.setCodice(codice1);
+                        }
+                        listaCodici.add(codice);
+                        break;
+                }
+            } xmlr.close();
+            xmlr.next();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listaCodici;
     }
 
-    static NodeList  listaCodice = doc.getElementsByTagName("Codice");
-    static int  quantiCodici = listaCodice.getLength();
-    static String codice ;
+
     public static void controlloCodici(){
-            for (int z = 0; z < quantiCodici; z++) {
-                codice = listaCodice.item(z);
+
+            for (int z = 0; z < listaCodici.size(); z++) {
+                String codice = String.valueOf(listaCodici.get(z));
                 if( controlloCorrettezza(codice) ) //visualizziamo se il codice è
                        System.out.println(codice + " è corretto");
                 else

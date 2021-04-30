@@ -18,7 +18,9 @@ public class LeggiDati {
 
     private static final ArrayList<Persona> ListaPersone = new ArrayList<>();
 
+
     public static ArrayList<Persona> estraggoDati() {
+        Persona persona = new Persona();
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
 
@@ -32,57 +34,60 @@ public class LeggiDati {
         }
 
         try {
-            while (true) {
-                if (!xmlr.hasNext()) break;
-                // continua a leggere finché ha eventi a disposizione
-                if (xmlr.getEventType() == XMLStreamConstants.START_ELEMENT) {
-                    String cognome = null;
-                    String nome = null;
-                    String anno=null;
-                    String mese=null;
-                    String giorno = null;
-                    String sesso= null;
-                    String comune = null;
-                    String codice = null;
-                        for (int i = 0; i < xmlr.getAttributeCount(); i++) {
-
-                            if (xmlr.getAttributeLocalName(i).equals("cognome")) {
-                                cognome = String.valueOf(xmlr.getAttributeValue(i));
-                            }
-                            if (xmlr.getAttributeLocalName(i).equals("nome")) {
-                                nome = String.valueOf(xmlr.getAttributeValue(i));
-                            }
-                            if (xmlr.getAttributeLocalName(i).equals("data_nascita")) {
-                                anno = String.valueOf(xmlr.getAttributeValue(i).substring(0, 3));
-                                mese = String.valueOf(xmlr.getAttributeValue(i).substring(5, 6));
-                                giorno = String.valueOf(xmlr.getAttributeValue(i).substring(8, 9));
-                            }
-                            if (xmlr.getAttributeLocalName(i).equals("sesso")) {
-                                sesso = String.valueOf(xmlr.getAttributeValue(i));
-                            }
-                            if (xmlr.getAttributeLocalName(i).equals("comune_nascita")) {
-                                comune = String.valueOf(xmlr.getAttributeValue(i));
-                                codice = estraggoCodiceComune(comune);
-                            }
-
+            String elementoAttuale = "";
+            while (xmlr.hasNext()) {
+                switch (xmlr.getEventType()){
+                    case XMLStreamConstants.START_ELEMENT:
+                        elementoAttuale = xmlr.getLocalName();
+                        break;
+                    case XMLStreamConstants.CHARACTERS:
+                        if (elementoAttuale.equalsIgnoreCase("cognome")) {
+                            String cognome = xmlr.getText();
+                            persona.setCOGNOME(cognome);
                         }
-                        Persona persona = new Persona(cognome, nome, anno, mese, sesso, giorno, codice);
+                        if (elementoAttuale.equalsIgnoreCase("nome")) {
+                            String nome = xmlr.getText();
+                            persona.setNOME(nome);
+                        }
+                        if (elementoAttuale.equalsIgnoreCase("data_nascita")) {
+                            String anno = xmlr.getText().substring(0, 3);
+                                persona.setANNO(anno);
+                            String mese = xmlr.getText().substring(5, 6);
+                                persona.setMESE(mese);
+                            String giorno = xmlr.getText().substring(8, 9);
+                                persona.setGIORNO(giorno);
+                        }
+                        if (elementoAttuale.equalsIgnoreCase("sesso")) {
+                            String sesso = xmlr.getText();
+                            persona.setSESSO(sesso);
+                        }
+                        if (elementoAttuale.equalsIgnoreCase("comune")) {
+                            String comune = xmlr.getText();
+                            String codice = estraggoCodiceComune(comune);
+                            persona.setCOMUNE(codice);
+                        }
                         ListaPersone.add(persona);
+                        break;
                 }
-                xmlr.next();
-            }
-        } catch (XMLStreamException e) {
+            } xmlr.close();
+            xmlr.next();
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-    return ListaPersone;
+    }
+
+        return ListaPersone;
     }
 
 
 
-    public static String estraggoCodiceComune(String comune){
+
+
+
+    public static String estraggoCodiceComune(String comune) {
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr2 = null;
-        String codiceComune = null;
+        String nomeComune;
+
         try {
             //aggiungo i file xml
             xmlif = XMLInputFactory.newInstance();
@@ -92,21 +97,31 @@ public class LeggiDati {
             System.out.println(e.getMessage());
         }
 
-        try{
-        while(true){
-            try {
-                if (!xmlr2.hasNext()) break;
-                if (xmlr2.getEventType() == XMLStreamConstants.START_ELEMENT) { ;
-                    for (int i = 0; i < xmlr2.getAttributeCount(); i++) {
-                        if (xmlr2.getAttributeLocalName(i).equals("codice"))
-                            codiceComune = String.valueOf(xmlr2.getAttributeValue(i));
-                    }
+        String codiceComune = null;
+        try {
+            String elementoAttuale = "";
+            while (xmlr2.hasNext()) {
+
+                switch (xmlr2.getEventType()) {
+                    case XMLStreamConstants.START_ELEMENT:
+                        elementoAttuale = xmlr2.getLocalName();
+                        break;
+                    case XMLStreamConstants.CHARACTERS:
+                        if (elementoAttuale.equalsIgnoreCase("nome")) {
+                            nomeComune = String.valueOf(xmlr2.getText());
+
+                            if (nomeComune.equalsIgnoreCase(comune)) {
+                                if (elementoAttuale.equalsIgnoreCase("codice")) {
+                                    codiceComune = String.valueOf(xmlr2.getText());
+                                }
+                            }
+                        }
+                        break;
                 }
-            } catch (XMLStreamException e) {
-                e.printStackTrace();
+                xmlr2.close();
+                xmlr2.next();
             }
-        }
-    } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
