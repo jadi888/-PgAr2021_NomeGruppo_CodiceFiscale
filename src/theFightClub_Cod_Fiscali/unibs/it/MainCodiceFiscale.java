@@ -12,5 +12,6 @@ public class MainCodiceFiscale {
             Persona.setCF(CodiceFiscale.generaCodice(persona));
             System.out.println(persona.getCF());
         }
+        //chiamo classe creaoutput con parametro lista persone
     }
 }
