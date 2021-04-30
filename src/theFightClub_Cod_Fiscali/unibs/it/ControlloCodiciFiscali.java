@@ -7,62 +7,46 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamReader;
 import java.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ControlloCodiciFiscali {
 
-    private static final   ArrayList<Codice> listaCodici = new ArrayList<>();
-
-    public static ArrayList<Codice> estraggoCodici(){
-        Codice codice = new Codice();
-        XMLInputFactory xmlif = null;
-        XMLStreamReader xmlr = null;
-
+    File xmlFile; //INCLUDO IL FILE XML codiciFiscali.xml
+    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+    DocumentBuilder dBuilder;
         try {
-            //aggiungo i file xml
-            xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader("codiciFiscali.xml", new FileInputStream("codiciFiscali.xml"));
-        } catch (Exception e) {
-            System.out.println("Errore nell'inizializzazione del reader: ");
-            System.out.println(e.getMessage());
-        }
-
+        xmlFile = new File("codiciFiscali.xml");
         try {
-            String elementoAttuale = "";
-            while (xmlr.hasNext()) {
-                switch (xmlr.getEventType()){
-                    case XMLStreamConstants.START_ELEMENT:
-                        elementoAttuale = xmlr.getLocalName();
-                        break;
-                    case XMLStreamConstants.CHARACTERS:
-                        if (elementoAttuale.equalsIgnoreCase("codice")) {
-                            String codice1= xmlr.getText();
-                            codice.setCodice(codice1);
-                        }
-                        listaCodici.add(codice);
-                        break;
-                }
-            } xmlr.close();
-            xmlr.next();
-        } catch (Exception e) {
+            dBuilder = dbFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
-        return listaCodici;
+        Document doc = null;
+        try {
+            doc = dBuilder.parse(xmlFile);
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        doc.getDocumentElement().normalize();
+        printElement(doc);
+        System.out.println("XML file updated successfully");
+    } catch(SAXException || ParserConfigurationException e1);
+
+    {
+        e1.printStackTrace();
     }
 
-
+    static NodeList  listaCodice = doc.getElementsByTagName("Codice");
+    static int  quantiCodici = listaCodice.getLength();
+    static String codice ;
     public static void controlloCodici(){
-
-            for (int z = 0; z < listaCodici.size(); z++) {
-                String codice = String.valueOf(listaCodici.get(z));
-                if( controlloCorrettezza(codice) ) //visualizziamo se il codice è
+            for (int z = 0; z < quantiCodici; z++) {
+                codice = listaCodice.item(z);
+                if( controlloLunghezza(codice) ) //visualizziamo se il codice è
                        System.out.println(codice + " è corretto");
                 else
                        System.out.println(codice + "non è corretto");
@@ -70,7 +54,7 @@ public class ControlloCodiciFiscali {
     }
 
 
-    private static boolean controlloCorrettezza(String codice) { //CONTROLLO CHE LA LUNGHEZZA DEL CODICE SIA UGUALE A 16 E SE NON LO è ESCE DAL CICLO
+    private static boolean controlloLunghezza(String codice) { //CONTROLLO CHE LA LUNGHEZZA DEL CODICE SIA UGUALE A 16 E SE NON LO è ESCE DAL CICLO
            boolean corretto = false;
                //estraggo codice e ne verifico l'effettiva lunghezza
                if (codice.length() == 16)
