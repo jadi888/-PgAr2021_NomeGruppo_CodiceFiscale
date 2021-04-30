@@ -81,8 +81,6 @@ public class LeggiDati {
 
 
 
-
-
     public static String estraggoCodiceComune(String comune) {
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr2 = null;
