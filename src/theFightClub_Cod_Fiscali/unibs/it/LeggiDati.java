@@ -36,7 +36,7 @@ public class LeggiDati {
         try {
             String elementoAttuale = "";
             while (xmlr.hasNext()) {
-                switch (xmlr.getEventType()){
+                switch (xmlr.getEventType()) {
                     case XMLStreamConstants.START_ELEMENT:
                         elementoAttuale = xmlr.getLocalName();
                         break;
@@ -51,11 +51,11 @@ public class LeggiDati {
                         }
                         if (elementoAttuale.equalsIgnoreCase("data_nascita")) {
                             String anno = xmlr.getText().substring(0, 3);
-                                persona.setANNO(anno);
+                            persona.setANNO(anno);
                             String mese = xmlr.getText().substring(5, 6);
-                                persona.setMESE(mese);
+                            persona.setMESE(mese);
                             String giorno = xmlr.getText().substring(8, 9);
-                                persona.setGIORNO(giorno);
+                            persona.setGIORNO(giorno);
                         }
                         if (elementoAttuale.equalsIgnoreCase("sesso")) {
                             String sesso = xmlr.getText();
@@ -69,16 +69,15 @@ public class LeggiDati {
                         ListaPersone.add(persona);
                         break;
                 }
-            } xmlr.close();
+            }
+            xmlr.close();
             xmlr.next();
         } catch (Exception e) {
             e.printStackTrace();
-    }
+        }
 
         return ListaPersone;
     }
-
-
 
 
     public static String estraggoCodiceComune(String comune) {
@@ -125,7 +124,6 @@ public class LeggiDati {
 
         return codiceComune;
     }
-
 
 
 }

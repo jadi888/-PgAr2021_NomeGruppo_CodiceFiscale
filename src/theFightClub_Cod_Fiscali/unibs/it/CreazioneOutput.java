@@ -10,6 +10,9 @@ public class CreazioneOutput {
     public void creazioneOutput (ArrayList<Persona> listaPersone)
     {
 
+
+        /*
+
         XMLOutputFactory xmlof = null;
         XMLStreamWriter xmlw = null;
         try
@@ -26,12 +29,12 @@ public class CreazioneOutput {
             xmlw.writeStartElement("output"); // scrittura del tag radice
             xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
             xmlw.writeStartElement("persone");
-            xmlw.writeAttribute("numero =", String.valueOf(listaPersone.size()));
+            xmlw.writeAttribute("numero", String.valueOf(listaPersone.size()));
 
             for (int i = 0; i < listaPersone.size(); i++)
             {                         //elemento persone
                 xmlw.writeStartElement("persona");
-                xmlw.writeAttribute("id =", Integer.toString(i));
+                xmlw.writeAttribute("id", Integer.toString(i));
                 xmlw.writeStartElement("nome");
                 xmlw.writeCharacters(listaPersone.get(i).getNOME());
                 xmlw.writeEndElement();
@@ -58,7 +61,7 @@ public class CreazioneOutput {
             xmlw.writeStartElement("codici");
 
             xmlw.writeStartElement("invalidi"); //da adattare al passo 3, controllo codici con salvataggio da rimettere qui
-            xmlw.writeAttribute("numero =", );
+            xmlw.writeAttribute("numero", );
             xmlw.writeEndElement();
 
             xmlw.writeStartElement("spaiati"); //controlo codici inserire qui gli spaiati
@@ -74,7 +77,7 @@ public class CreazioneOutput {
             xmlw.close(); // chiusura del documento e delle risorse impiegate
         } catch (Exception e) { // se c’è un errore viene eseguita questa parte
             System.out.println("Errore nella scrittura");
-
+*/
 
         }
     }

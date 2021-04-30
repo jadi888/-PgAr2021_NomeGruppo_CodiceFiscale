@@ -147,7 +147,7 @@ public class CodiceFiscale {
     (per dettagli vedi wikipedia);
      */
 
-    public static String generaCarSpeciale(String carSpeciale) {
+    public static String generaCarSpeciale(String codTemp) {
         int codice_finale;
         int totale;
         int totale_pari=0;
@@ -157,11 +157,11 @@ public class CodiceFiscale {
         /* le stringhe in cui salvo rispettivamente i caratteri con indice pari o dispari*/
         StringBuffer pari = new StringBuffer();
         StringBuffer dispari = new StringBuffer();
-        for (int j = 0; j < carSpeciale.length(); j++) {
+        for (int j = 0; j < codTemp.length(); j++) {
             if (j % 2 == 0) {
-                pari.append(carSpeciale.charAt(j));
+                pari.append(codTemp.charAt(j));
             } else {
-                dispari.append(carSpeciale.charAt(j));
+                dispari.append(codTemp.charAt(j));
             }
         }
 
