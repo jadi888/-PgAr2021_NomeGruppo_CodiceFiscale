@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class LeggiDati {
 
-    private static final ArrayList<Persona> ListaPersone = new ArrayList<>();
+    private static final ArrayList<Persona> listaPersone = new ArrayList<>();
 
 
     public static ArrayList<Persona> estraggoDati() {
@@ -50,11 +50,11 @@ public class LeggiDati {
                             persona.setNOME(nome);
                         }
                         if (elementoAttuale.equalsIgnoreCase("data_nascita")) {
-                            String anno = xmlr.getText().substring(0, 3);
+                            String anno = xmlr.getText().substring(0, 4);
                             persona.setANNO(anno);
-                            String mese = xmlr.getText().substring(5, 6);
+                            String mese = xmlr.getText().substring(5, 7);
                             persona.setMESE(mese);
-                            String giorno = xmlr.getText().substring(8, 9);
+                            String giorno = xmlr.getText().substring(8, 10);
                             persona.setGIORNO(giorno);
                         }
                         if (elementoAttuale.equalsIgnoreCase("sesso")) {
@@ -76,7 +76,7 @@ public class LeggiDati {
             e.printStackTrace();
         }
 
-        return ListaPersone;
+        return listaPersone;
     }
 
 
@@ -94,30 +94,30 @@ public class LeggiDati {
             System.out.println(e.getMessage());
         }
 
-        String codiceComune = null;
+        String codiceComune;
         try {
             String elementoAttuale = "";
             while (xmlr2.hasNext()) {
 
                 switch (xmlr2.getEventType()) {
+                    case XMLStreamConstants.END_ELEMENT:
+                        elementoAttuale = "";
+                        break;
+
                     case XMLStreamConstants.START_ELEMENT:
                         elementoAttuale = xmlr2.getLocalName();
+
                         break;
                     case XMLStreamConstants.CHARACTERS:
-                        if (elementoAttuale.equalsIgnoreCase("nome")) {
+                        if (elementoAttuale.equalsIgnoreCase("nome"))
                             nomeComune = String.valueOf(xmlr2.getText());
 
-                            if (nomeComune.equalsIgnoreCase(comune)) {
-                                if (elementoAttuale.equalsIgnoreCase("codice")) {
-                                    codiceComune = String.valueOf(xmlr2.getText());
-                                }
-                            }
-                        }
+                        if(nomeComune.equalsIgnoreCase(comune))
+
                         break;
                 }
-                xmlr2.close();
                 xmlr2.next();
-            }
+            } xmlr2.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -78,7 +78,7 @@ public class CodiceFiscale {
     }
 
     public static String generaAnno(String anno){
-        anno = anno.substring(2,3);
+        anno = anno.substring(2,4);
         return anno;
     }
 

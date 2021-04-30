@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class ControlloCodiciFiscali {
 
     private static ArrayList<Codice> listaCodici = new ArrayList<>();
+
+
     public static ArrayList<Codice> estraggoCodici(){
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
@@ -37,10 +39,10 @@ public class ControlloCodiciFiscali {
                             listaCodici.add(codice);
                         }
                         break;
-                }
+                }xmlr.next();
 
             } xmlr.close();
-            xmlr.next();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
