@@ -34,7 +34,7 @@ public class ControlloCodiciFiscali {
         doc.getDocumentElement().normalize();
         printElement(doc);
         System.out.println("XML file updated successfully");
-    } catch(SAXException || ParserConfigurationException e1);
+    } catch(SAXException || ParserConfigurationException e1;);
 
     {
         e1.printStackTrace();
@@ -46,7 +46,7 @@ public class ControlloCodiciFiscali {
     public static void controlloCodici(){
             for (int z = 0; z < quantiCodici; z++) {
                 codice = listaCodice.item(z);
-                if( controlloLunghezza(codice) ) //visualizziamo se il codice è
+                if( controlloCorrettezza(codice) ) //visualizziamo se il codice è
                        System.out.println(codice + " è corretto");
                 else
                        System.out.println(codice + "non è corretto");
@@ -54,7 +54,7 @@ public class ControlloCodiciFiscali {
     }
 
 
-    private static boolean controlloLunghezza(String codice) { //CONTROLLO CHE LA LUNGHEZZA DEL CODICE SIA UGUALE A 16 E SE NON LO è ESCE DAL CICLO
+    private static boolean controlloCorrettezza(String codice) { //CONTROLLO CHE LA LUNGHEZZA DEL CODICE SIA UGUALE A 16 E SE NON LO è ESCE DAL CICLO
            boolean corretto = false;
                //estraggo codice e ne verifico l'effettiva lunghezza
                if (codice.length() == 16)
