@@ -9,7 +9,8 @@ public class MainCodiceFiscale {
     public static void main(String[] args){
 
         for(Persona persona : listaPersone){
-            Persona.setCF(CodiceFiscale.generaCodice(persona));
+            //ora  è una questione di prinipio
+            persona.setCF(CodiceFiscale.generaCodice(persona));
             System.out.println(persona.getCF());
         }
         //chiamo classe creaoutput con parametro lista persone

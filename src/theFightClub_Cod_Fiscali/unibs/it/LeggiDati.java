@@ -20,7 +20,7 @@ public class LeggiDati {
 
 
     public static ArrayList<Persona> estraggoDati() {
-        Persona persona = new Persona();
+        Persona persona = null;
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
 
@@ -37,10 +37,17 @@ public class LeggiDati {
             String elementoAttuale = "";
             while (xmlr.hasNext()) {
                 switch (xmlr.getEventType()) {
+                    case XMLStreamConstants.END_ELEMENT:
+                        elementoAttuale = "";
+                        break;
                     case XMLStreamConstants.START_ELEMENT:
                         elementoAttuale = xmlr.getLocalName();
+                        if(elementoAttuale.equals("persona")) {
+                            if(persona != null) listaPersone.add(persona);
+                            persona = new Persona();
+                        }
                         break;
-                    case XMLStreamConstants.CHARACTERS:
+                    case XMLStreamConstants.CHARACTERS: {
                         if (elementoAttuale.equalsIgnoreCase("cognome")) {
                             String cognome = xmlr.getText();
                             persona.setCOGNOME(cognome);
@@ -61,17 +68,18 @@ public class LeggiDati {
                             String sesso = xmlr.getText();
                             persona.setSESSO(sesso);
                         }
-                        if (elementoAttuale.equalsIgnoreCase("comune")) {
+                        if (elementoAttuale.equalsIgnoreCase("comune_nascita")) {
                             String comune = xmlr.getText();
                             String codice = estraggoCodiceComune(comune);
                             persona.setCOMUNE(codice);
                         }
-                        ListaPersone.add(persona);
                         break;
+                    }
                 }
+                xmlr.next();
             }
             xmlr.close();
-            xmlr.next();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -3,14 +3,14 @@ package theFightClub_Cod_Fiscali.unibs.it;
 public class
 Persona {
 
-    private static String COGNOME = null;
-    private static String NOME = null;
-    private static String ANNO = null;
-    private static String MESE = null;
-    private static String SESSO = null;
-    private static String GIORNO = null;
-    private static String COMUNE = null;
-    private static String CF =  null;
+    private String COGNOME = null;
+    private String NOME = null;
+    private String ANNO = null;
+    private String MESE = null;
+    private String SESSO = null;
+    private String GIORNO = null;
+    private String COMUNE = null;
+    private  String CF =  null;
 
 public Persona(){
 
@@ -86,8 +86,8 @@ public String getCF(){
         return CF;
 }
 
-public static void setCF(String CF){
-        Persona.CF = CF;
+public void setCF(String CF){
+        this.CF = CF;
 }
 
 
