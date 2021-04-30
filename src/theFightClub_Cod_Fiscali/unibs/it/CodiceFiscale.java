@@ -73,8 +73,10 @@ public class CodiceFiscale {
                     break;
                 }
             }
+            return new_Nome;
         }
-        return new_Nome;
+
+        return new_Nome.substring(0, 3);
     }
 
     public static String generaAnno(String anno){
@@ -123,20 +125,17 @@ public class CodiceFiscale {
     }
 
     public static String generaGiorno (String giorno, String sesso) {
-        if (sesso.equals("F")){
+
+         if (sesso.equals("F")){
             int g = Integer.parseInt(giorno);
-            giorno = String.valueOf(40 + g);
-            return giorno;
+           giorno = String.valueOf(40 + g);
+           return giorno;
+       }
+         else if(sesso.equals("M")){
+           return giorno;
         }
-        else if(sesso.equals("M")){
-            // se il giorno è compreso tra 1-9 aggiungo un zero davanti;
-            if (((Integer.parseInt(giorno)) >= 1) && (Integer.parseInt(giorno)) <= 9) {
-                return '0' + giorno;
-            }
-            else
-                return giorno;
-        }
-        else return null;
+           else return null;
+           //return sesso.equals("F") ? String.valueOf(Integer.parseInt(giorno) + 40) : giorno;
     }
 
     /*a partire dai 15 caratteri alfanumerici ricavati, determiniamo il carattere di controllo in base all'algoritmo
@@ -244,9 +243,9 @@ public class CodiceFiscale {
         totale = totale_dispari+totale_pari;
         codice_finale=totale%26;
 
-        char[] alphabet1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        String alphabet1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-        String carFinale = Character.toString(alphabet1[codice_finale]);
+        String carFinale = Character.toString(alphabet1.charAt(codice_finale));
         return carFinale;
 
     }

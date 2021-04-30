@@ -91,7 +91,7 @@ public class LeggiDati {
     public static String estraggoCodiceComune(String comune) {
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr2 = null;
-        String nomeComune;
+
 
         try {
             //aggiungo i file xml
@@ -102,14 +102,26 @@ public class LeggiDati {
             System.out.println(e.getMessage());
         }
 
-        String codiceComune;
+
         try {
             String elementoAttuale = "";
+            String codiceComune = "";
+            String nomeComune = "";
             while (xmlr2.hasNext()) {
 
                 switch (xmlr2.getEventType()) {
                     case XMLStreamConstants.END_ELEMENT:
+
+                        if (nomeComune.equalsIgnoreCase(comune) && !codiceComune.equals("")) {
+                            xmlr2.close();
+                            return codiceComune;
+                        }
                         elementoAttuale = "";
+
+                        if(!codiceComune.equals("") && !nomeComune.equals("")) {
+                            codiceComune = "";
+                            nomeComune = "";
+                        }
                         break;
 
                     case XMLStreamConstants.START_ELEMENT:
@@ -119,21 +131,19 @@ public class LeggiDati {
                     case XMLStreamConstants.CHARACTERS:
                         if (elementoAttuale.equalsIgnoreCase("nome"))
                             nomeComune = String.valueOf(xmlr2.getText());
-
-                        if(nomeComune.equalsIgnoreCase(comune))
-
+                        if (elementoAttuale.equalsIgnoreCase("codice"))
+                            codiceComune = String.valueOf(xmlr2.getText());
                         break;
                 }
                 xmlr2.next();
-            } xmlr2.close();
+            }
+            xmlr2.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return codiceComune;
+        return null;
     }
-
-
 }
 
 
