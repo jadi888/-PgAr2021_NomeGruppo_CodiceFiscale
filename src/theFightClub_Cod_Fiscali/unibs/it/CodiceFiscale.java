@@ -44,7 +44,8 @@ public class CodiceFiscale {
                         || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U'){
                     new_Cognome = new_Cognome+x;
                     break;}
-                    else continue;
+
+
             }
         }
 
@@ -71,7 +72,6 @@ public class CodiceFiscale {
                     new_Nome = new_Nome+x;
                     break;
                 }
-                else continue;
             }
         }
         return new_Nome;
@@ -149,7 +149,7 @@ public class CodiceFiscale {
 
     public static String generaCarSpeciale(String carSpeciale) {
         int codice_finale;
-        int totale = 0;
+        int totale;
         int totale_pari=0;
         int totale_dispari=0;
 
@@ -170,7 +170,7 @@ public class CodiceFiscale {
         for(int i = 0; i < pari.length(); i++){
             /*se il carattere è un intero lo sommo al totale dei pari*/
             if(Character.isDigit(pari.charAt(i)))
-                totale_pari+=(int)pari.charAt(i);
+                totale_pari+=pari.charAt(i);
                 /*se il carattere è un char allora li assegno il numero in base all'ordine che occupa nell'alfabeto*/
             else
                 totale_pari+=(alphabet.indexOf(pari.charAt(i)));

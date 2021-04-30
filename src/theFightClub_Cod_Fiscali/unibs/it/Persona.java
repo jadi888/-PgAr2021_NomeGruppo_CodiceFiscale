@@ -1,6 +1,7 @@
 package theFightClub_Cod_Fiscali.unibs.it;
 
-public class Persona {
+public class
+Persona {
 
     private static String COGNOME = null;
     private static String NOME = null;
