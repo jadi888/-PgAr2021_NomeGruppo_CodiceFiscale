@@ -245,9 +245,7 @@ public class CodiceFiscale {
         codice_finale=totale%26;
 
         char[] alphabet1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-        if (codice_finale > 25) {
-            return null;
-        }
+
         String carFinale = Character.toString(alphabet1[codice_finale]);
         return carFinale;
 
